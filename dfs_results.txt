@@ -1,0 +1,75 @@
+=================================================================
+PART B: Depth-First Search (DFS) — Starting from Vertex A
+=================================================================
+
+Graph adjacency list (alphabetical neighbour ordering):
+  A -> ['B', 'D']
+  B -> ['C', 'F']
+  C -> ['E', 'G', 'H']
+  D -> ['F']
+  E -> ['B', 'F']
+  F -> ['A']
+  G -> ['E', 'H']
+  H -> []
+
+
+=================================================================
+DFS Results: Discovery and Finish Times
+=================================================================
+Vertex    Discovery      Finish         Parent    
+--------------------------------------------------
+A         1              16             None      
+B         2              13             A         
+C         3              12             B         
+D         14             15             A         
+E         4              7              C         
+F         5              6              E         
+G         8              11             C         
+H         9              10             G         
+
+
+=================================================================
+Edge Classifications
+=================================================================
+Edge (u->v)    Classification      
+-----------------------------------
+  A -> B           Tree edge
+  B -> C           Tree edge
+  C -> E           Tree edge
+  E -> B           Back edge
+  E -> F           Tree edge
+  F -> A           Back edge
+  C -> G           Tree edge
+  G -> E           Cross edge
+  G -> H           Tree edge
+  C -> H           Forward edge
+  B -> F           Forward edge
+  A -> D           Tree edge
+  D -> F           Cross edge
+
+
+=================================================================
+Summary of Edge Types
+=================================================================
+  Back edge           : 2
+  Cross edge          : 2
+  Forward edge        : 2
+  Tree edge           : 7
+
+
+=================================================================
+Edge Type Definitions
+=================================================================
+
+  Tree edge    : Edge (u,v) where v was first discovered via u.
+                 v is WHITE when first explored from u.
+
+  Back edge    : Edge (u,v) where v is an ANCESTOR of u in DFS tree.
+                 v is GRAY (still being processed) when (u,v) explored.
+                 Back edges indicate CYCLES in the graph.
+
+  Forward edge : Edge (u,v) where v is a DESCENDANT of u (not tree edge).
+                 v is BLACK and d[u] < d[v].
+
+  Cross edge   : All other edges — between different DFS subtrees.
+                 v is BLACK and d[u] > d[v].
